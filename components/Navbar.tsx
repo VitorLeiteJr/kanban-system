@@ -8,7 +8,7 @@ import { PiKanban } from "react-icons/pi";
 const Navbar = () => {
     const {isSignedIn} = useSession()
     return ( 
-    <div className="py-5 bg-gray-500 relative z-10 w-full">
+    <div className="py-5 bg-transparent relative z-10 w-full">
         <div className="flex justify-between 
         w-[90%] max-w-[1450px] mx-auto">
             <Link href={"/"}
