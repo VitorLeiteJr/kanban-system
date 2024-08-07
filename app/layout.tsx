@@ -3,6 +3,7 @@ import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
+import ToasterContext from "@/context/ToasterContext";
 
 const ubuntu = Ubuntu({ subsets: ["latin"], 
   weight: ["300","400","500","700"] });
@@ -21,6 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
       <body className={`${ubuntu.className} dark:bg-gray-900 text-white`}>
+        <ToasterContext/>
         <Navbar></Navbar>
         {children}</body>
     </html>

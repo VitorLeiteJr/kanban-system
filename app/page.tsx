@@ -3,7 +3,8 @@ import Link from "next/link";
 
 const Home = () => {
   return ( 
-    <div className="bg-[url('/bg.jpeg')] h-[102vh] relative w-full bg-cover mt-[-75px] overflow-hidden text-white">
+    <div className="bg-[url('/bg.jpeg')] h-[102vh] relative w-full 
+    bg-cover mt-[-75px] overflow-hidden text-white">
     <div className="flex h-full items-center justify-center pt-[82px] gap20 w-[90%] mx-auto max-w-[1450px]">
       <div className="grid items-center gap-6 md:grid-cols-2">
         <img
