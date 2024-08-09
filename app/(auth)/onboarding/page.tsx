@@ -1,15 +1,17 @@
 import { currentUser } from "@clerk/nextjs/server";
 import OnboardingForm from "../components/OnboardingForm";
+import { getBoardIdForUser } from "@/app/actions/getBoardId";
 
 const page = async () => {
-    const user = await currentUser();
-    const userName = user?.firstName ?? "";
+    const boardId = await getBoardIdForUser()
+    const user = await currentUser()
+    const userName = user?.firstName ?? ""
 
     return (     
     <div className="bg-[url('/bg.jpeg')] h-[102vh] relative w-full 
     bg-cover mt-[-75px] overflow-hidden" >
     
-    <OnboardingForm user={userName}/>
+    <OnboardingForm user={userName} boardId={boardId}/>
     </div> );
 }
  

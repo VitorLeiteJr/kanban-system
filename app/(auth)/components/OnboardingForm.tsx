@@ -1,13 +1,21 @@
 
 "use client"
 
+import { createNewBoard, createTask } from "@/app/actions/boardActions";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { SyncLoader } from "react-spinners";
+
+interface user{
+  user: string | null | undefined,
+  boardId: string | null
+
+
+}
 
 const variants = {
   hidden: { opacity: 0 },
@@ -15,10 +23,16 @@ const variants = {
   exit: { opacity: 0 },
 };
 
-const OnboardingForm = ({user}: {user: string | null | undefined}) => {
+const OnboardingForm = ({user,boardId}: user) => {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if(boardId != null){
+      router.replace("/mykanban")
+    }
+  },[])
 
 
     const stepOneSubmit = () =>{
@@ -59,11 +73,12 @@ const OnboardingForm = ({user}: {user: string | null | undefined}) => {
             </h1>
             <form
             className="flex flex-col gap-10 items-center"
+            action={createNewBoard}
             onSubmit={stepOneSubmit}
           >
             <Input
             type="text"
-            name="name"
+            name="boardname"
             placeholder="My board name..."
             >
             </Input>
@@ -84,13 +99,20 @@ const OnboardingForm = ({user}: {user: string | null | undefined}) => {
                  Now Let's Add your first task! 😊               
             </h1>
             <form 
-            action={stepTwoSubmit}
+            onSubmit={stepTwoSubmit}
+            action={createTask}
             className="flex flex-col gap-10 items-center">
             <Input
             type="text"
             name="task"
             placeholder="my fist task.."
             disabled={loading}>
+            </Input>
+
+            <Input
+            type="hidden"
+            value={boardId!}
+            name="boardId">
             </Input>
 
             <div className="flex justify-between w-5/5 mb-10">
