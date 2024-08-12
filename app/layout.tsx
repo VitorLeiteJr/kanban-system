@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${ubuntu.className} dark:bg-gray-900 text-white`}>
         <ToasterContext/>
         <Navbar></Navbar>
