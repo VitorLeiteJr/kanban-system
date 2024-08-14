@@ -3,6 +3,7 @@
 import { UserButton, useSession } from "@clerk/nextjs";
 import Link from "next/link";
 import { PiKanban } from "react-icons/pi";
+import ThemeSwitcher from "./ui/ThemeSwitcher";
 
 
 const Navbar = () => {
@@ -18,7 +19,7 @@ const Navbar = () => {
             </Link>
             <div className="flex items-center gap-5">
                 <UserButton afterSignOutUrl="/"/>
-                <span>Theme Switch</span>
+              <ThemeSwitcher/>
             </div>
             {!isSignedIn && (<Link 
             className="tracking-tight hover:underline"
