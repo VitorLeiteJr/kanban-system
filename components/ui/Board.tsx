@@ -7,12 +7,16 @@ import { DragDropContext, DropResult } from "@hello-pangea/dnd"
 import Column from "./Column"
 import axios from "axios"
 import { SyncLoader } from "react-spinners"
+import { FaPlus } from "react-icons/fa"
+import Modal from "./Modal"
+import { createTask } from "@/app/actions/boardActions"
 
 export const Board: React.FC<{board: BoardTypes | null }> = ({board}) => {
     
     const [tasks, setTasks] = useState<Task[] | null >(null)
     const [loading, setLoading] = useState(true)
     const router = useRouter()
+    const [isCreate, setIsCreate] = useState (false)    
     // STATE FOR MODAL 
 
 
@@ -25,7 +29,15 @@ export const Board: React.FC<{board: BoardTypes | null }> = ({board}) => {
           router.push("/onboarding")
         }
       }, [board])
+
+        const openModal =()=> {
+            setIsCreate(true)
+        }
+        const closeModal =()=> {
+          setIsCreate(false)
+        }
         //MODAL CONSTROLS
+
 
         const onDragEnd = (result: DropResult) => {
             const { source, destination, draggableId } = result;
@@ -96,8 +108,23 @@ export const Board: React.FC<{board: BoardTypes | null }> = ({board}) => {
                 {board!.name}
               </h1>
               <DragDropContext onDragEnd={onDragEnd}>
-                <div className="grid md:grid-cols-3 max-md:items-center w-[90%] max-w-[1500px] mx-auto md:gap-5 gap-10">
-                  
+                <div className="grid md:grid-cols-3 max-md:items-center 
+                w-[90%] max-w-[1500px] mx-auto md:gap-5 gap-10">
+
+                  <button
+                  className="bg-gray-700 rounded-full hover:bg-gray-600
+                  text-white font-bold p-4 absolute right-10 bottom-10"
+                  onClick={openModal}
+                  >
+                    <FaPlus/>
+                    </button>   
+                    {isCreate && (<Modal
+                   closeModal={closeModal}
+                   title="Create new task"
+                   isCreate={isCreate}
+                   action={createTask}
+                   value={board!.id} 
+                    />)}              
                   <Column
                     title="Todo"
                     tasks={tasks!.filter(

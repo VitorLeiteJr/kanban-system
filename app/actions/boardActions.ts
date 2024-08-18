@@ -59,4 +59,33 @@ export async function createTask(formData: FormData){
     revalidatePath("/")
 }
 
-//edit and delete server actions
+export async function editTask(formData: FormData){
+    const newTask = formData.get("newTask") as string
+    const taskId = formData.get("taskId") as string
+
+if(!newTask.trim()){
+    return
+}
+
+await prisma.task.update({
+    where: {
+        id: taskId,        
+    },
+    data:{
+        name: newTask
+    },
+})
+revalidatePath("/")
+}
+
+export async function deleteTask(formData: FormData){
+    const taskId = formData.get("taskId") as string
+
+    await prisma.task.delete({
+        where: {
+            id:taskId
+        },
+    })
+
+    revalidatePath("/")
+}

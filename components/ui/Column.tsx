@@ -2,6 +2,8 @@ import { Task } from "@/types/types"
 import { Draggable, Droppable } from "@hello-pangea/dnd"
 import { useState } from "react"
 import { LuDot } from "react-icons/lu"
+import Modal from "./Modal"
+import { deleteTask, editTask } from "@/app/actions/boardActions"
 
 interface ColumnProps{
   title: string
@@ -13,9 +15,30 @@ interface ColumnProps{
 const Column:React.FC<ColumnProps> = ({title,tasks, droppableId}) => {
 const [hoverIndex, setHoverIndex] = useState<number | null >(null)
 const [taskId, setTaskId] = useState<string | null>(null)
-//MODAL STATUS HERE
+const [isEdit, setIsEdit] = useState(false)
+const [isDelete, setIsDelete] = useState(false)
 
-//MODAL FUNCTIONS
+const openDeleteModal=(taskId:string) => {
+  setIsDelete(true)
+  setTaskId(taskId)
+}
+
+const closeDeleteModal  =() => {
+  setIsDelete(false)
+  setTaskId(null)
+}
+
+const openEditModal  =(taskId: string) => {
+  setIsEdit(true)
+  setTaskId(taskId)
+}
+const closeEditModal  =() => {
+  setIsEdit(false)
+  setTaskId(null)
+}
+
+
+
 
   return (
     <div className="flex-1">
@@ -49,14 +72,17 @@ const [taskId, setTaskId] = useState<string | null>(null)
               {task.name}
               {hoverIndex === index && ( 
                 <div className="flex gap-5">
-                  <div className="text-xs text-gray-400 mt-1 
-                  cursor-pointer">
+                  <span className="text-xs text-gray-400 mt-1 
+                  cursor-pointer"
+                  onClick={()=>openEditModal(task.id)}>
                     Edit
-                  </div>
-                  <div className="text-xs text-gray-400 mt-1 
-                  cursor-pointer">
+                  </span>
+                  <span className="text-xs text-gray-400 mt-1 
+                  cursor-pointer"
+                  onClick={()=> openDeleteModal(task.id)}
+                  >
                     Delete
-                  </div>
+                  </span>
 
               </div> )}
 
@@ -69,6 +95,29 @@ const [taskId, setTaskId] = useState<string | null>(null)
       )}
 
       </Droppable>
+      {isEdit && (
+        <Modal
+        closeModal={closeEditModal}
+        isEdit={isEdit}
+        value={taskId!}
+        action={editTask}
+        title="Edit Task"
+
+        
+        />
+      )}
+
+        {isDelete && (
+        <Modal
+        closeModal={closeDeleteModal}
+        value={taskId!}
+        action={deleteTask}
+        title="Are you sure you wnat to delete this task?"
+
+        
+        />
+      )}
+
     </div>
   )
 }
