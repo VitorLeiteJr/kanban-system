@@ -22,12 +22,14 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en" suppressHydrationWarning>
-      <body className={`${ubuntu.className} dark:bg-gray-900`}>
-        <Theme >
-        <ToasterContext/>
+      <body className={`${ubuntu.className} dark:bg-gray-900`} >
+        
+        <Theme>
+        <ToasterContext />
         <Navbar/>
         {children}        
         </Theme>
+
         </body>
     </html>
     </ClerkProvider>
