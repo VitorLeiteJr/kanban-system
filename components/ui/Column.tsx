@@ -113,6 +113,7 @@ const closeEditModal  =() => {
         value={taskId!}
         action={deleteTask}
         title="Are you sure you wnat to delete this task?"
+        isDelete={isDelete}
 
         
         />

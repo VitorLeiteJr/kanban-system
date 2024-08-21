@@ -14,7 +14,7 @@ const Navbar = () => {
     const kanbanRoute = useRouteCheck(["mykanban"])   
         return ( 
     <div className={`py-5 bg-transparent relative z-10 w-full ${!kanbanRoute || onboardingRoute ?
-        "text-white" : null } ${signInPages && "text-gray-900 dark:text-white" }`}>
+        "text-white" : null } ${signInPages && "text-gray-800 dark:text-white" }`}>
         <div className="flex justify-between 
         w-[90%] max-w-[1450px] mx-auto">
             <Link href={"/"}
